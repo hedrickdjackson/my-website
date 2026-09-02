@@ -1,0 +1,180 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const interests = [
+	{ label: "Technology", emoji: "💻" },
+	{ label: "Gaming", emoji: "🎮" },
+	{ label: "Music", emoji: "🎵" },
+	{ label: "Learning new things", emoji: "🚀" },
+];
+---
+
+<BaseLayout>
+	<header class="hero">
+		<p class="eyebrow">Personal site</p>
+		<h1>Hey, I'm <em>Jackson</em></h1>
+		<p class="lede">
+			Welcome to my personal website — my little corner of the internet while I
+			learn how the web works.
+		</p>
+	</header>
+
+	<main>
+		<section class="section" style="--i: 1">
+			<h2>About Me</h2>
+			<p>
+				Hey! I'm Jackson. I'm learning how websites work and building this site
+				from scratch with Astro.
+			</p>
+		</section>
+
+		<section class="section" style="--i: 2">
+			<h2>What I'm Into</h2>
+			<ul class="interests">
+				{
+					interests.map((item) => (
+						<li>
+							<span class="emoji" aria-hidden="true">
+								{item.emoji}
+							</span>
+							{item.label}
+						</li>
+					))
+				}
+			</ul>
+		</section>
+
+		<section class="section" style="--i: 3">
+			<h2>My Goals</h2>
+			<p>
+				I'm learning how to code, make websites, and eventually build some
+				really cool projects.
+			</p>
+		</section>
+
+		<section class="section" style="--i: 4">
+			<h2>My Projects</h2>
+			<p class="soon">Projects coming soon…</p>
+		</section>
+
+		<section class="section" style="--i: 5">
+			<h2>Contact</h2>
+			<p>Thanks for visiting my website!</p>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<p>© 2026 Jackson</p>
+	</footer>
+</BaseLayout>
+
+<style>
+	.hero {
+		margin-bottom: 3.25rem;
+		animation: rise 0.7s ease both;
+	}
+
+	.eyebrow {
+		margin: 0 0 0.75rem;
+		color: var(--accent);
+		font-size: 0.8rem;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	h1 {
+		margin: 0 0 1rem;
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 10vw, 4.5rem);
+		font-weight: 400;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+	}
+
+	h1 em {
+		font-style: italic;
+		color: var(--accent);
+	}
+
+	.lede {
+		margin: 0;
+		max-width: 28rem;
+		color: var(--muted);
+		font-size: 1.15rem;
+	}
+
+	.section {
+		padding: 1.75rem 0;
+		border-top: 1px solid var(--line);
+		animation: rise 0.7s ease both;
+		animation-delay: calc(var(--i) * 0.08s);
+	}
+
+	h2 {
+		margin: 0 0 0.65rem;
+		font-family: var(--font-display);
+		font-size: 1.85rem;
+		font-weight: 400;
+		letter-spacing: -0.01em;
+	}
+
+	.section p {
+		margin: 0;
+		color: var(--muted);
+	}
+
+	.interests {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.interests li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		color: var(--ink);
+		font-weight: 500;
+		transition: transform 0.2s ease;
+	}
+
+	.interests li:hover {
+		transform: translateX(4px);
+	}
+
+	.emoji {
+		font-size: 1.15rem;
+	}
+
+	.soon {
+		font-style: italic;
+	}
+
+	.footer {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--line);
+		color: var(--muted);
+		font-size: 0.9rem;
+		animation: rise 0.7s ease both;
+		animation-delay: 0.5s;
+	}
+
+	.footer p {
+		margin: 0;
+	}
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>
