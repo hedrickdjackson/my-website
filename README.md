@@ -15,16 +15,20 @@ npm run dev
 npm run build
 ```
 
-Static files land in `dist/`. Cloudflare should use:
+Static files land in `dist/`.
 
-- **Build command:** `npm run build`
-- **Deploy / assets:** Wrangler serves `./dist` (see `wrangler.jsonc`)
+## Cloudflare Workers Builds
 
-## Deploy
+In the Worker **Settings → Build**, use:
 
-If your Cloudflare GitHub integration builds on push to `main`, just push.
+| Setting | Value |
+| --- | --- |
+| **Build command** | `npm run build` |
+| **Deploy command** | `npx wrangler deploy` |
 
-To deploy from your machine:
+Without the build command, deploy fails because `dist/` does not exist yet. Wrangler serves `./dist` (see `wrangler.jsonc`).
+
+## Deploy locally
 
 ```bash
 npm run deploy

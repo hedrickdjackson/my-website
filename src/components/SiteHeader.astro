@@ -1,0 +1,123 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const links = [
+	{ href: "/", label: "About" },
+	{ href: "/experience", label: "Experience" },
+	{ href: "/education", label: "Education" },
+	{ href: "/projects", label: "Projects" },
+	{ href: "/contact", label: "Contact" },
+];
+
+function isActive(href: string) {
+	if (href === "/") return pathname === "/";
+	return pathname === href || pathname.startsWith(`${href}/`);
+}
+---
+
+<header class="site-header">
+	<div class="identity">
+		<a class="name" href="/">Jackson Hedrick</a>
+		<p class="role">Student · Electrical engineering, and Geology</p>
+	</div>
+
+	<nav class="nav-row" aria-label="Site">
+		<div class="tabs">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						aria-current={isActive(link.href) ? "page" : undefined}
+					>
+						{link.label}
+					</a>
+				))
+			}
+			<a
+				class="github"
+				href="https://github.com/hedrickdjackson/my-website"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				GitHub
+				<span class="ext" aria-hidden="true">↗</span>
+			</a>
+		</div>
+	</nav>
+</header>
+
+<style>
+	.site-header {
+		margin-bottom: 2rem;
+		padding-bottom: 1.25rem;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.identity {
+		margin-bottom: 1.25rem;
+	}
+
+	.name {
+		display: inline-block;
+		color: var(--ink);
+		font-family: var(--font-display);
+		font-size: clamp(1.85rem, 6vw, 2.35rem);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		line-height: 1.15;
+		text-decoration: none;
+	}
+
+	.name:hover {
+		color: var(--accent);
+	}
+
+	.role {
+		margin: 0.35rem 0 0;
+		color: var(--muted);
+		font-size: 1.05rem;
+		font-weight: 500;
+	}
+
+	.nav-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.75rem 1.5rem;
+	}
+
+	.tabs {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.35rem 1.25rem;
+		width: 100%;
+	}
+
+	.tabs a {
+		color: var(--muted);
+		font-weight: 500;
+		text-decoration: none;
+		padding-bottom: 0.2rem;
+		border-bottom: 2px solid transparent;
+	}
+
+	.tabs a:hover {
+		color: var(--ink);
+	}
+
+	.tabs a[aria-current="page"] {
+		color: var(--ink);
+		border-bottom-color: var(--accent);
+	}
+
+	.github {
+		margin-left: auto;
+	}
+
+	.ext {
+		margin-left: 0.2rem;
+		font-size: 0.85em;
+	}
+</style>

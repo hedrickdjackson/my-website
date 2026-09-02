@@ -1,12 +1,14 @@
 ---
+import SiteHeader from "../components/SiteHeader.astro";
+
 interface Props {
 	title?: string;
 	description?: string;
 }
 
 const {
-	title = "Jackson's Website",
-	description = "Hey, I'm Jackson. This is my little corner of the internet.",
+	title = "Jackson Hedrick",
+	description = "Personal website and resume.",
 } = Astro.props;
 ---
 
@@ -21,29 +23,33 @@ const {
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600&display=swap"
 			rel="stylesheet"
 		/>
 		<title>{title}</title>
 	</head>
 	<body>
 		<div class="page">
-			<slot />
+			<SiteHeader />
+			<main>
+				<slot />
+			</main>
+			<footer class="footer">
+				<p>© 2026 Jackson Hedrick</p>
+			</footer>
 		</div>
 	</body>
 </html>
 
 <style is:global>
 	:root {
-		--bg: #e8eef2;
-		--bg-deep: #d5e0e8;
-		--ink: #1a2330;
-		--muted: #4a5a6a;
-		--accent: #0d7a6f;
-		--accent-soft: rgba(13, 122, 111, 0.12);
-		--line: rgba(26, 35, 48, 0.12);
-		--font-display: "Instrument Serif", Georgia, serif;
-		--font-body: "Outfit", system-ui, sans-serif;
+		--bg: #f3f5f7;
+		--ink: #1a1f26;
+		--muted: #5b6570;
+		--line: #d5dae0;
+		--accent: #1d4ed8;
+		--font-display: "Source Serif 4", Georgia, serif;
+		--font-body: "Source Sans 3", system-ui, sans-serif;
 	}
 
 	*,
@@ -52,45 +58,92 @@ const {
 		box-sizing: border-box;
 	}
 
-	html {
-		scroll-behavior: smooth;
-	}
-
 	body {
 		margin: 0;
 		min-height: 100vh;
 		color: var(--ink);
 		font-family: var(--font-body);
 		font-size: 1.05rem;
-		line-height: 1.65;
-		background:
-			radial-gradient(ellipse 80% 50% at 10% -10%, #b8d4c8 0%, transparent 55%),
-			radial-gradient(ellipse 60% 40% at 100% 0%, #a8c4d8 0%, transparent 50%),
-			linear-gradient(165deg, var(--bg) 0%, var(--bg-deep) 100%);
-		background-attachment: fixed;
+		line-height: 1.6;
+		background: var(--bg);
 	}
 
 	.page {
-		width: min(42rem, calc(100% - 2.5rem));
+		width: min(40rem, calc(100% - 2rem));
 		margin: 0 auto;
-		padding: 4.5rem 0 3rem;
+		padding: 3rem 0 4rem;
 	}
 
 	a {
 		color: var(--accent);
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		html {
-			scroll-behavior: auto;
-		}
+	h1,
+	h2 {
+		font-family: var(--font-display);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
 
-		*,
-		*::before,
-		*::after {
-			animation-duration: 0.01ms !important;
-			animation-iteration-count: 1 !important;
-			transition-duration: 0.01ms !important;
-		}
+	.page-title {
+		margin: 0 0 1rem;
+		font-size: 1.5rem;
+	}
+
+	.prose {
+		margin: 0;
+		color: var(--muted);
+		max-width: 34rem;
+	}
+
+	.list {
+		margin: 0;
+		padding-left: 1.15rem;
+		color: var(--muted);
+	}
+
+	.list li + li {
+		margin-top: 0.35rem;
+	}
+
+	.entry + .entry {
+		margin-top: 1.25rem;
+	}
+
+	.entry-top {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		align-items: baseline;
+		margin-bottom: 0.25rem;
+	}
+
+	.entry p {
+		margin: 0;
+		color: var(--muted);
+	}
+
+	.meta {
+		color: var(--muted);
+		font-size: 0.95rem;
+		white-space: nowrap;
+	}
+
+	.note {
+		margin-top: 1rem;
+		color: var(--muted);
+		font-style: italic;
+	}
+
+	.footer {
+		margin-top: 2.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--line);
+		color: var(--muted);
+		font-size: 0.9rem;
+	}
+
+	.footer p {
+		margin: 0;
 	}
 </style>
