@@ -1,41 +1,38 @@
 ---
-const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
-
-const links = [
-	{ href: "/", label: "About" },
-	{ href: "/experience", label: "Experience" },
-	{ href: "/education", label: "Education" },
-	{ href: "/projects", label: "Projects" },
-	{ href: "/contact", label: "Contact" },
+const tabs = [
+	{ id: "about", label: "About" },
+	{ id: "experience", label: "Experience" },
+	{ id: "education", label: "Education" },
+	{ id: "projects", label: "Projects" },
+	{ id: "contact", label: "Contact" },
 ];
-
-function isActive(href: string) {
-	if (href === "/") return pathname === "/";
-	return pathname === href || pathname.startsWith(`${href}/`);
-}
 ---
 
 <header class="site-header">
 	<div class="identity">
-		<a class="name" href="/">Jackson Hedrick</a>
+		<p class="name">Jackson Hedrick</p>
 		<p class="role">Student · Electrical engineering, and Geology</p>
 	</div>
 
 	<nav class="nav-row" aria-label="Site">
-		<div class="tabs">
+		<div class="tabs" role="tablist">
 			{
-				links.map((link) => (
-					<a
-						href={link.href}
-						aria-current={isActive(link.href) ? "page" : undefined}
+				tabs.map((tab, index) => (
+					<button
+						type="button"
+						role="tab"
+						id={`tab-${tab.id}`}
+						data-tab={tab.id}
+						aria-controls={tab.id}
+						aria-selected={index === 0 ? "true" : "false"}
 					>
-						{link.label}
-					</a>
+						{tab.label}
+					</button>
 				))
 			}
 			<a
 				class="github"
-				href="https://github.com/hedrickdjackson/my-website"
+				href="https://github.com/hedrickdjackson"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
@@ -45,6 +42,29 @@ function isActive(href: string) {
 		</div>
 	</nav>
 </header>
+
+<script>
+	const buttons = document.querySelectorAll<HTMLButtonElement>("[data-tab]");
+	const panels = document.querySelectorAll<HTMLElement>("[data-panel]");
+
+	function showTab(id: string) {
+		buttons.forEach((button) => {
+			const selected = button.dataset.tab === id;
+			button.setAttribute("aria-selected", selected ? "true" : "false");
+		});
+
+		panels.forEach((panel) => {
+			panel.hidden = panel.id !== id;
+		});
+	}
+
+	buttons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const id = button.dataset.tab;
+			if (id) showTab(id);
+		});
+	});
+</script>
 
 <style>
 	.site-header {
@@ -58,18 +78,13 @@ function isActive(href: string) {
 	}
 
 	.name {
-		display: inline-block;
+		margin: 0;
 		color: var(--ink);
 		font-family: var(--font-display);
 		font-size: clamp(1.85rem, 6vw, 2.35rem);
 		font-weight: 600;
 		letter-spacing: -0.02em;
 		line-height: 1.15;
-		text-decoration: none;
-	}
-
-	.name:hover {
-		color: var(--accent);
 	}
 
 	.role {
@@ -83,8 +98,6 @@ function isActive(href: string) {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
-		justify-content: space-between;
-		gap: 0.75rem 1.5rem;
 	}
 
 	.tabs {
@@ -92,28 +105,41 @@ function isActive(href: string) {
 		flex-wrap: wrap;
 		align-items: baseline;
 		gap: 0.35rem 1.25rem;
-		width: 100%;
 	}
 
-	.tabs a {
+	.tabs button,
+	.github {
+		appearance: none;
+		margin: 0;
+		padding: 0 0 0.2rem;
+		border-width: 0 0 2px;
+		border-style: solid;
+		border-color: transparent;
+		background: transparent;
 		color: var(--muted);
+		font-family: var(--font-body);
+		font-size: 1.05rem;
 		font-weight: 500;
+		line-height: 1.6;
+		letter-spacing: normal;
 		text-decoration: none;
-		padding-bottom: 0.2rem;
-		border-bottom: 2px solid transparent;
+		cursor: pointer;
 	}
 
-	.tabs a:hover {
+	.tabs button:hover,
+	.github:hover {
 		color: var(--ink);
 	}
 
-	.tabs a[aria-current="page"] {
+	.tabs button[aria-selected="true"] {
 		color: var(--ink);
 		border-bottom-color: var(--accent);
 	}
 
-	.github {
-		margin-left: auto;
+	.tabs button:focus-visible,
+	.github:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
 	}
 
 	.ext {

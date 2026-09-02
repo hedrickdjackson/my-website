@@ -2,16 +2,105 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="About · Jackson Hedrick">
-	<h1 class="page-title">About</h1>
-	<p class="prose">TBD</p>
-	<p class="prose" style="margin-top: 1rem">TBD</p>
+<BaseLayout title="Jackson Hedrick">
+	<section id="about" data-panel role="tabpanel" aria-labelledby="tab-about">
+		<h1 class="page-title">About</h1>
+		<p class="prose">TBD</p>
+		<p class="prose" style="margin-top: 1rem">TBD</p>
 
-	<h2 class="subhead">Skills</h2>
-	<p class="prose">TBD</p>
+		<h2 class="subhead">Skills</h2>
+		<p class="prose">TBD</p>
 
-	<h2 class="subhead">Interests</h2>
-	<p class="prose">TBD</p>
+		<h2 class="subhead">Interests</h2>
+		<ul class="list">
+			<li>Geology</li>
+			<li>Paleontology</li>
+			<li>Electrical Engineering</li>
+			<li>Gaming</li>
+		</ul>
+	</section>
+
+	<section
+		id="experience"
+		data-panel
+		role="tabpanel"
+		aria-labelledby="tab-experience"
+		hidden
+	>
+		<h1 class="page-title">Experience</h1>
+		<p class="prose">TBD</p>
+	</section>
+
+	<section
+		id="education"
+		data-panel
+		role="tabpanel"
+		aria-labelledby="tab-education"
+		hidden
+	>
+		<h1 class="page-title">Education</h1>
+
+		<div class="entry">
+			<div class="entry-top">
+				<strong>University of Washington</strong>
+				<span class="meta">TBD</span>
+			</div>
+			<p>B.S. Earth and Space Sciences: Geology</p>
+			<p>B.S. Electrical and Computer Engineering</p>
+		</div>
+
+		<div class="entry">
+			<div class="entry-top">
+				<strong>Bellevue College</strong>
+				<span class="meta">2025 – 2026</span>
+			</div>
+		</div>
+
+		<div class="entry">
+			<div class="entry-top">
+				<strong>Montana State University</strong>
+				<span class="meta">2024 – 2025</span>
+			</div>
+		</div>
+
+		<div class="entry">
+			<div class="entry-top">
+				<strong>Bellevue High School</strong>
+				<span class="meta">Graduate (2026)</span>
+			</div>
+		</div>
+	</section>
+
+	<section
+		id="projects"
+		data-panel
+		role="tabpanel"
+		aria-labelledby="tab-projects"
+		hidden
+	>
+		<h1 class="page-title">Projects</h1>
+		<p class="prose">TBD</p>
+	</section>
+
+	<section
+		id="contact"
+		data-panel
+		role="tabpanel"
+		aria-labelledby="tab-contact"
+		hidden
+	>
+		<h1 class="page-title">Contact</h1>
+		<ul class="list">
+			<li>
+				Email:{" "}
+				<a href="mailto:example@gmail.com">example@gmail.com</a>
+			</li>
+			<li>
+				Phone Number:{" "}
+				<a href="tel:+19999999999">(999) 999-999</a>
+			</li>
+		</ul>
+	</section>
 </BaseLayout>
 
 <style>
