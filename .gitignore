@@ -26,3 +26,4 @@ pnpm-debug.log*
 # local AI assistant notes (not needed on GitHub)
 AGENTS.md
 CLAUDE.md
+README.md
