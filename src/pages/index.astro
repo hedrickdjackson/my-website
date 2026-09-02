@@ -17,10 +17,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 		<h2 class="subhead">Interests</h2>
 		<ul class="list">
-			<li>Geology</li>
-			<li>Paleontology</li>
-			<li>Electrical Engineering</li>
-			<li>Gaming</li>
+			<li>
+				Geology &amp; Paleontology
+				<ul class="list">
+					<li>
+						I enjoy hunting and studying fossils, especially dinosaur
+						fossils.
+					</li>
+				</ul>
+			</li>
+			<li>
+				Electrical Engineering
+				<ul class="list">
+					<li>
+						I enjoy math and physics and applying it to real world
+						engineering.
+					</li>
+				</ul>
+			</li>
+			<li>
+				Gaming
+				<ul class="list">
+					<li>
+						I enjoy playing a variety of PC games online with friends.
+					</li>
+				</ul>
+			</li>
 		</ul>
 	</section>
 
@@ -148,6 +170,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	.subhead {
 		margin: 1.75rem 0 0.75rem;
 		font-size: 1.1rem;
+	}
+
+	.list .list {
+		margin-top: 0.35rem;
+		margin-bottom: 0.15rem;
 	}
 
 	.project-link {
