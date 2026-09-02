@@ -110,15 +110,35 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		<ul class="list">
 			<li>
 				Email:{" "}
-				<a href="mailto:example@gmail.com">example@gmail.com</a>
+				<a class="js-email" href="#">Enable JavaScript to view</a>
 			</li>
 			<li>
 				Phone Number:{" "}
-				<a href="tel:+19999999999">(999) 999-999</a>
+				<a class="js-phone" href="#">Enable JavaScript to view</a>
 			</li>
 		</ul>
 	</section>
 </BaseLayout>
+
+<script>
+	function decode(value: string) {
+		return atob(value);
+	}
+
+	const email = decode("amFja3NvbmRoZWRyaWNrQGdtYWlsLmNvbQ==");
+	const phoneDigits = decode("NDA2NTk5NTQwMg==");
+	const phoneDisplay = `(${phoneDigits.slice(0, 3)}) ${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`;
+
+	document.querySelectorAll<HTMLAnchorElement>(".js-email").forEach((link) => {
+		link.textContent = email;
+		link.href = `mailto:${email}`;
+	});
+
+	document.querySelectorAll<HTMLAnchorElement>(".js-phone").forEach((link) => {
+		link.textContent = phoneDisplay;
+		link.href = `tel:+1${phoneDigits}`;
+	});
+</script>
 
 <style>
 	.subhead {
