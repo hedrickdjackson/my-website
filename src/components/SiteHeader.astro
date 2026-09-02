@@ -10,7 +10,27 @@ const tabs = [
 
 <header class="site-header">
 	<div class="identity">
-		<p class="name">Jackson Hedrick</p>
+		<div class="identity-top">
+			<p class="name">Jackson Hedrick</p>
+			<button
+				type="button"
+				class="theme-toggle"
+				data-theme-toggle
+				aria-label="Toggle dark mode"
+			>
+				<span class="theme-icon theme-icon-sun" aria-hidden="true">
+					<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="4"></circle>
+						<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+					</svg>
+				</span>
+				<span class="theme-icon theme-icon-moon" aria-hidden="true">
+					<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"></path>
+					</svg>
+				</span>
+			</button>
+		</div>
 		<p class="role">Student · Electrical engineering, and Geology</p>
 	</div>
 
@@ -64,6 +84,35 @@ const tabs = [
 			if (id) showTab(id);
 		});
 	});
+
+	const themeToggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+
+	function currentTheme() {
+		return document.documentElement.getAttribute("data-theme") === "dark"
+			? "dark"
+			: "light";
+	}
+
+	function updateThemeToggle() {
+		if (!themeToggle) return;
+		const isDark = currentTheme() === "dark";
+		themeToggle.setAttribute(
+			"aria-label",
+			isDark ? "Switch to light mode" : "Switch to dark mode",
+		);
+	}
+
+	function setTheme(theme: "light" | "dark") {
+		document.documentElement.setAttribute("data-theme", theme);
+		localStorage.setItem("theme", theme);
+		updateThemeToggle();
+	}
+
+	themeToggle?.addEventListener("click", () => {
+		setTheme(currentTheme() === "dark" ? "light" : "dark");
+	});
+
+	updateThemeToggle();
 </script>
 
 <style>
@@ -77,6 +126,13 @@ const tabs = [
 		margin-bottom: 1.25rem;
 	}
 
+	.identity-top {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
 	.name {
 		margin: 0;
 		color: var(--ink);
@@ -85,6 +141,39 @@ const tabs = [
 		font-weight: 600;
 		letter-spacing: -0.02em;
 		line-height: 1.15;
+	}
+
+	.theme-toggle {
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		padding: 0.25rem;
+		border: none;
+		background: transparent;
+		color: var(--muted);
+		cursor: pointer;
+		flex-shrink: 0;
+	}
+
+	.theme-toggle:hover {
+		color: var(--ink);
+	}
+
+	.theme-toggle:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	.theme-icon {
+		display: none;
+		line-height: 0;
+	}
+
+	:global(html[data-theme="dark"]) .theme-icon-moon,
+	:global(html:not([data-theme="dark"])) .theme-icon-sun {
+		display: block;
 	}
 
 	.role {
