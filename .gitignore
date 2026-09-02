@@ -22,3 +22,7 @@ pnpm-debug.log*
 # wrangler
 .wrangler/
 .dev.vars
+
+# local AI assistant notes (not needed on GitHub)
+AGENTS.md
+CLAUDE.md
